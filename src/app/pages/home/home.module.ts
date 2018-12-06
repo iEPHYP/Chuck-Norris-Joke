@@ -14,6 +14,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { HomeComponent } from './home.component';
 import { FavouritesComponent } from './components/favourites/favourites.component';
 import { RandomJokesComponent } from './components/random-jokes/random-jokes.component';
+import { JokesComponent } from './components/jokes/jokes.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RandomJokesComponent } from './components/random-jokes/random-jokes.com
     RefresherComponent,
     LogoutComponent,
     FavouritesComponent,
-    RandomJokesComponent
+    RandomJokesComponent,
+    JokesComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +34,7 @@ import { RandomJokesComponent } from './components/random-jokes/random-jokes.com
     MatButtonModule,
     MatCardModule
   ],
-  exports: [
-    HomeComponent
-  ],
+  exports: [HomeComponent],
   providers: []
 })
 export class HomeModule {}

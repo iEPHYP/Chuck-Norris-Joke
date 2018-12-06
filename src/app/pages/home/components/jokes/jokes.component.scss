@@ -1,0 +1,33 @@
+mat-card {
+  margin: 10px;
+
+  ul {
+    padding: 0px;
+    li.joke-item {
+      margin: 5px;
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      &:hover {
+        transition: 0.3s;
+        background: rgb(231, 231, 231);
+      }
+
+      span {
+        margin-right: 5px;
+      }
+
+      mat-icon {
+        color: rgb(170, 111, 0);
+      }
+
+      button:hover {
+        opacity: 0.6;
+        transition: 0.3s;
+      }
+    }
+  }
+}

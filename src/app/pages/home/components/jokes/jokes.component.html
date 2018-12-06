@@ -1,0 +1,15 @@
+<mat-card>
+  <h4>{{ title }}</h4>
+  <ul>
+    <li *ngFor="let joke of jokes" class="joke-item">
+      <span>{{ joke?.joke }}</span>
+      <button mat-icon-button (click)="joke.stared = !joke.stared">
+        <mat-icon *ngIf="!joke.stared">star_border</mat-icon>
+        <mat-icon *ngIf="joke.stared">star</mat-icon>
+      </button>
+    </li>
+  </ul>
+  <div *ngIf="!(jokes && jokes.length)">
+    No jokes for now. Come here later (;
+  </div>
+</mat-card>
