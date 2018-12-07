@@ -8,6 +8,7 @@ import { Joke } from '../jokes/jokes.model';
 })
 export class FavouritesComponent implements OnInit {
 
+  public loading: boolean = false;
   public jokes: Joke[] = [];
 
   constructor() { }

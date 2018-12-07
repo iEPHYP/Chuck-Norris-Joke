@@ -9,6 +9,7 @@ import { Joke } from './jokes.model';
 export class JokesComponent implements OnInit {
   @Input() title: string;
   @Input() jokes: Joke[];
+  @Input() loading: boolean = true;
 
   constructor() {}
 
