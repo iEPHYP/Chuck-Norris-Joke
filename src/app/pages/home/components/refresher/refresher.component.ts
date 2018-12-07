@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from '../../home.data.service';
 import { Subject } from 'rxjs';
 
@@ -7,11 +7,13 @@ import { Subject } from 'rxjs';
   templateUrl: './refresher.component.html',
   styleUrls: ['./refresher.component.scss']
 })
-export class RefresherComponent implements OnDestroy {
+export class RefresherComponent implements OnInit, OnDestroy {
   private subject = new Subject();
 
-  constructor(dataService: DataService) {
-    dataService.addRefresher(this.subject.asObservable());
+  constructor(private dataService: DataService) {}
+
+  ngOnInit(): void {
+    this.dataService.addRefresher(this.subject.asObservable());
   }
 
   clicked() {
