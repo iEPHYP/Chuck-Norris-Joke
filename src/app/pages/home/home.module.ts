@@ -5,7 +5,8 @@ import {
   MatSlideToggleModule,
   MatIconModule,
   MatButtonModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { RandomLikerComponent } from './components/random-liker/random-liker.component';
@@ -15,6 +16,7 @@ import { HomeComponent } from './home.component';
 import { FavouritesComponent } from './components/favourites/favourites.component';
 import { RandomJokesComponent } from './components/random-jokes/random-jokes.component';
 import { JokesComponent } from './components/jokes/jokes.component';
+import { DataService } from './home.data.service';
 
 @NgModule({
   declarations: [
@@ -32,9 +34,10 @@ import { JokesComponent } from './components/jokes/jokes.component';
     MatSlideToggleModule,
     MatIconModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   exports: [HomeComponent],
-  providers: []
+  providers: [DataService]
 })
 export class HomeModule {}
