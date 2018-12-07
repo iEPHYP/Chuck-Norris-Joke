@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { RandomerService } from '../../home.randomer.service';
 
 @Component({
   selector: 'app-random-liker',
   templateUrl: './random-liker.component.html',
   styleUrls: ['./random-liker.component.scss']
 })
-export class RandomLikerComponent implements OnInit {
+export class RandomLikerComponent {
 
-  constructor() { }
+  public on = false;
 
-  ngOnInit() {
+  constructor(private service: RandomerService) { }
+
+  timerClicked() {
+    this.on = !this.on;
+    this.on ? this.service.startTimer() : this.service.stopTimer();
   }
 
 }
