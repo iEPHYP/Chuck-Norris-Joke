@@ -9,8 +9,6 @@ import { Joke } from './components/jokes/jokes.model';
 export class RandomerService {
   private apiUrl = 'http://api.icndb.com/jokes/random/1';
   private timerPeriod = 1000;
-  private maxJokesCount = 10;
-  private jokes: Joke[] = [];
   private getRandomJokeSubject = new Subject<Joke>();
   private timerStoppedSubject = new Subject();
 
@@ -20,12 +18,11 @@ export class RandomerService {
     interval(this.timerPeriod)
       .pipe(
         takeUntil(this.timerStoppedSubject),
-        filter(() => this.jokes.length < this.maxJokesCount),
         switchMap(() => this.http.get<JokesData>(this.apiUrl))
       )
       .subscribe(data => {
         const joke = data && data.value && data.value.length && data.value[0];
-        joke && (joke.stared = true);
+        joke && (joke.liked = true);
         this.getRandomJokeSubject.next(joke);
       });
   }
@@ -34,8 +31,7 @@ export class RandomerService {
     this.timerStoppedSubject.next();
   }
 
-  getRandomJoke$(jokes: Joke[]) {
-    this.jokes = jokes;
+  getRandomJoke$() {
     return this.getRandomJokeSubject.asObservable();
   }
 
