@@ -18,6 +18,7 @@ import { RandomJokesComponent } from './components/random-jokes/random-jokes.com
 import { JokesComponent } from './components/jokes/jokes.component';
 import { DataService } from './home.data.service';
 import { RandomerService } from './home.randomer.service';
+import { FavouriteJokesService } from './home.favourite-jokes.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,6 @@ import { RandomerService } from './home.randomer.service';
     MatProgressSpinnerModule
   ],
   exports: [HomeComponent],
-  providers: [DataService, RandomerService]
+  providers: [DataService, RandomerService, FavouriteJokesService]
 })
 export class HomeModule {}
