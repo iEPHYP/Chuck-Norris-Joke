@@ -19,18 +19,20 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   addRefresher(refreshClick$: Observable<any>) {
-    refreshClick$.subscribe(() => this.onRefreshClickSubject.next());
-
     refreshClick$
       .pipe(
-        debounceTime(250),
         startWith('emit click for first data load'),
+        debounceTime(250),
         switchMap(() => this.http.get<JokesData>(this.apiUrl)),
         takeUntil(this.destroyed)
       )
       .subscribe(data => {
         this.getDataSubject.next(data);
       });
+
+    refreshClick$
+      .pipe(takeUntil(this.destroyed))
+      .subscribe(() => this.onRefreshClickSubject.next());
   }
 
   getRandomJokes(): Observable<JokesData> {
@@ -45,5 +47,6 @@ export class DataService {
     this.destroyed.next();
     this.destroyed.complete();
     this.getDataSubject.complete();
+    this.onRefreshClickSubject.complete();
   }
 }
