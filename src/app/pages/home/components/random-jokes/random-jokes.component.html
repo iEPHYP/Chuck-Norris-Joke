@@ -1,1 +1,1 @@
-<app-jokes [title]="'Random Jokes'" [jokes]="jokes" [loading]="loading"></app-jokes>
+<app-jokes [title]="'Random Jokes'" [jokes]="jokes" [loading]="loading" (likeChange)="update($event)"></app-jokes>
