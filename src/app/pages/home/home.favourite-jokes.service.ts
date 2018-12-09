@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Joke } from './components/jokes/jokes.model';
 import { NotificationService } from 'src/app/app.notification.service';
-import { jokesMocks } from './components/random-jokes/jokes.mock';
 
 @Injectable()
 export class FavouriteJokesService {

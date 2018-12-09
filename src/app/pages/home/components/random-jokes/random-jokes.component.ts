@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Joke } from '../jokes/jokes.model';
-// import { jokesMocks } from './jokes.mock';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DataService } from '../../home.data.service';
