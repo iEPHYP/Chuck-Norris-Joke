@@ -4,6 +4,7 @@ import { RandomerService } from '../../home.randomer.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FavouriteJokesService } from '../../home.favourite-jokes.service';
+import { DataService } from '../../home.data.service';
 
 @Component({
   selector: 'app-favourites',
@@ -19,11 +20,13 @@ export class FavouritesComponent implements OnInit, OnDestroy {
 
   constructor(
     private randomerService: RandomerService,
-    private favouriteJokesService: FavouriteJokesService
+    private favouriteJokesService: FavouriteJokesService,
+    private dataService: DataService
   ) {}
 
   ngOnInit() {
     this.setupFavouriteSyncing();
+    this.dataService.provideFavourites(this.jokes);
     this.setupRandomingTimer();
   }
 

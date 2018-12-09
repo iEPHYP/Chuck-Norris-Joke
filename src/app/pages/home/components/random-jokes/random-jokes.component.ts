@@ -36,9 +36,8 @@ export class RandomJokesComponent implements OnInit, OnDestroy {
     this.dataService
       .getRandomJokes()
       .pipe(takeUntil(this.destroyed))
-      .subscribe(data => {
-        this.jokes = data.value;
-        // this.jokes = this.favouriteJokesService.syncWithFavourites(data.value); // TODO: realize this reactivity
+      .subscribe(jokes => {
+        this.jokes = jokes;
         this.loading = false;
       });
   }
