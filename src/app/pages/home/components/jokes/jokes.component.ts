@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Joke } from './jokes.model';
 
 @Component({
@@ -6,14 +6,17 @@ import { Joke } from './jokes.model';
   templateUrl: './jokes.component.html',
   styleUrls: ['./jokes.component.scss']
 })
-export class JokesComponent implements OnInit {
+export class JokesComponent {
   @Input() title: string;
   @Input() jokes: Joke[];
   @Input() loading: boolean = true;
+  @Output() likeChange = new EventEmitter<Joke>();
 
   constructor() {}
 
-  ngOnInit() {
+  update(joke: Joke) {
+    joke.liked = !joke.liked;
+    this.likeChange.emit(joke);
   }
 
 }
