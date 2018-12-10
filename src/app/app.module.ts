@@ -8,6 +8,7 @@ import { HomeModule } from './pages/home/home.module';
 import { LoginModule } from './pages/login/login.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NotificationService } from './app.notification.service';
+import { LoginService } from './pages/login/login.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,7 @@ import { NotificationService } from './app.notification.service';
     HomeModule,
     LoginModule
   ],
-  providers: [NotificationService],
+  providers: [NotificationService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

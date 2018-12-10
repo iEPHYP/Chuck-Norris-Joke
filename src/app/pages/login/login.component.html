@@ -1,3 +1,26 @@
-<p>
-  login works!
-</p>
+<mat-card [formGroup]="loginForm">
+  <mat-form-field>
+    <input matInput formControlName="email" placeholder="e-mail" />
+    <mat-error *ngIf="emailErrors?.email">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="emailErrors?.required">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      formControlName="password"
+      placeholder="password"
+      type="password"
+    />
+    <mat-error *ngIf="passwordErrors?.required">
+      Password is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="passwordErrors?.password && !passwordErrors?.required">
+      Password is <strong>wrong</strong>
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button (click)="onSubmit()">LOGIN</button>
+</mat-card>
