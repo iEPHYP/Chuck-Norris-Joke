@@ -59,9 +59,6 @@ export class DataService {
   }
 
   destroy() {
-    this.getDataSubject.complete();
-    this.onRefreshClickSubject.complete();
     this.destroyed.next();
-    this.destroyed.complete();
   }
 }

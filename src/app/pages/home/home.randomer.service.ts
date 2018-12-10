@@ -37,7 +37,5 @@ export class RandomerService {
 
   destroy() {
     this.timerStoppedSubject.next();
-    this.timerStoppedSubject.complete();
-    this.getRandomJokeSubject.complete();
   }
 }

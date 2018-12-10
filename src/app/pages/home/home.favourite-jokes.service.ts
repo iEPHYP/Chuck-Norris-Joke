@@ -36,9 +36,7 @@ export class FavouriteJokesService {
   }
 
   destroy() {
-    this.jokeUpdatedSubject.complete();
     this.destroyed.next();
-    this.destroyed.complete();
   }
 
 }
