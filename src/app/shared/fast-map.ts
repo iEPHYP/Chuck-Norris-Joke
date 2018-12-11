@@ -50,7 +50,7 @@ export class FastMap<T> {
     this._keys.push(key);
     this._values.push(value);
     this._indexStore[key] = this._keys.length - 1;
-    this._indexStore.length++;
+    this.length++;
 
     return this.length;
   }
@@ -82,7 +82,7 @@ export class FastMap<T> {
       this._valueStore[key] = undefined;
       this._indexStore[key] = undefined;
       this.adjustIndexValues(index);
-      this.length++;
+      this.length--;
     }
   }
 
