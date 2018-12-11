@@ -1,6 +1,6 @@
 <mat-card [formGroup]="loginForm">
   <mat-form-field>
-    <input matInput formControlName="email" placeholder="e-mail" />
+    <input matInput formControlName="email" placeholder="e-mail" (keyup.enter)="onSubmit()" />
     <mat-error *ngIf="emailErrors?.email">
       Please enter a valid email address
     </mat-error>
@@ -14,6 +14,7 @@
       formControlName="password"
       placeholder="password"
       type="password"
+      (keyup.enter)="onSubmit()"
     />
     <mat-error *ngIf="passwordErrors?.required">
       Password is <strong>required</strong>
