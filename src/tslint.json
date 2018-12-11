@@ -14,7 +14,6 @@
             "kebab-case"
         ],
         "no-inferrable-types": false,
-        "no-unused-expression": false,
-        "forin": false
+        "no-unused-expression": false
     }
 }

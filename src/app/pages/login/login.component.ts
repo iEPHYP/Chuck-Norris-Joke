@@ -30,8 +30,10 @@ export class LoginComponent {
     } else {
       const controls = this.loginForm.controls;
       for (const key in controls) {
-        const control = controls[key];
-        control.markAsTouched();
+        if (controls.hasOwnProperty(key)) {
+          const control = controls[key];
+          control.markAsTouched();
+        }
       }
     }
   }
