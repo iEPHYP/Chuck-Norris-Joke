@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FavouriteJokesService } from '../../home.favourite-jokes.service';
 import { DataService } from '../../home.data.service';
+import { FastMap } from 'src/app/shared/fast-map';
 
 @Component({
   selector: 'app-favourites',
@@ -13,7 +14,7 @@ import { DataService } from '../../home.data.service';
 })
 export class FavouritesComponent implements OnInit, OnDestroy {
   public loading: boolean = false;
-  public jokes: Joke[] = [];
+  public jokes = new FastMap<Joke>();
   private destroyed = new Subject();
 
   private jokesLimit = 10;
@@ -31,7 +32,7 @@ export class FavouritesComponent implements OnInit, OnDestroy {
   }
 
   setupFavouriteSyncing() {
-    this.jokes = this.favouriteJokesService.getFavouriteJokes();
+    this.jokes = new FastMap(this.favouriteJokesService.getFavouriteJokes());
 
     this.favouriteJokesService
       .getStarChange$()
@@ -39,8 +40,7 @@ export class FavouritesComponent implements OnInit, OnDestroy {
       .subscribe(joke => {
         let listMutated = false;
 
-        const _jokeIndex = this.jokes.findIndex(j => j.id === joke.id);
-        const _joke = _jokeIndex >= 0 && this.jokes[_jokeIndex];
+        const _joke = this.jokes.read(joke.id);
         if (!_joke && joke.liked) {
           const iCould = this.addJokeIfYouCan(joke);
           listMutated = true;
@@ -50,13 +50,14 @@ export class FavouritesComponent implements OnInit, OnDestroy {
             listMutated = false;
           }
         } else if (_joke && !joke.liked) {
-          this.jokes.splice(_jokeIndex, 1);
+          this.jokes.remove(joke.id);
           listMutated = true;
         }
 
         listMutated &&
-          this.favouriteJokesService.updateFavouritesInStorage(this.jokes);
-        // this is for the case when prop jokes is map
+          this.favouriteJokesService.updateFavouritesInStorage(
+            this.jokes.values()
+          );
       });
   }
 
@@ -73,8 +74,8 @@ export class FavouritesComponent implements OnInit, OnDestroy {
     this.favouriteJokesService.update(joke);
   }
 
-  addJokeIfYouCan(joke: Joke) {
-    return this.jokes.length < this.jokesLimit && this.jokes.push(joke);
+  addJokeIfYouCan(joke: Joke): boolean {
+    return this.jokes.length < this.jokesLimit && !!this.jokes.insert(joke);
   }
 
   ngOnDestroy(): void {

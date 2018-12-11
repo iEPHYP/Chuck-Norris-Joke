@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Joke } from './jokes.model';
+import { FastMap } from 'src/app/shared/fast-map';
 
 @Component({
   selector: 'app-jokes',
@@ -8,7 +9,7 @@ import { Joke } from './jokes.model';
 })
 export class JokesComponent {
   @Input() title: string;
-  @Input() jokes: Joke[];
+  @Input() jokes: FastMap<Joke>;
   @Input() loading: boolean = true;
   @Output() likeChange = new EventEmitter<Joke>();
 

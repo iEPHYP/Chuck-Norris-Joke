@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DataService } from '../../home.data.service';
 import { FavouriteJokesService } from '../../home.favourite-jokes.service';
+import { FastMap } from 'src/app/shared/fast-map';
 
 @Component({
   selector: 'app-random-jokes',
@@ -11,7 +12,7 @@ import { FavouriteJokesService } from '../../home.favourite-jokes.service';
   styleUrls: ['./random-jokes.component.scss']
 })
 export class RandomJokesComponent implements OnInit, OnDestroy {
-  public jokes: Joke[] = [];
+  public jokes = new FastMap<Joke>();
   public loading: boolean = true;
   public destroyed = new Subject();
 
@@ -37,7 +38,7 @@ export class RandomJokesComponent implements OnInit, OnDestroy {
       .getRandomJokes()
       .pipe(takeUntil(this.destroyed))
       .subscribe(jokes => {
-        this.jokes = jokes;
+        this.jokes = new FastMap(jokes);
         this.loading = false;
       });
   }
@@ -47,11 +48,8 @@ export class RandomJokesComponent implements OnInit, OnDestroy {
       .getStarChange$()
       .pipe(takeUntil(this.destroyed))
       .subscribe(joke => {
-        const _joke = this.jokes.find(j => j.id === joke.id);
+        const _joke = this.jokes.read(joke.id);
         _joke && (_joke.liked = joke.liked);
-        // this is for the case when prop jokes is map
-        // const j = this.jokes[joke.id];
-        // j && (j.stared = joke.stared);
       });
   }
 

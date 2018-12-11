@@ -1,7 +1,7 @@
 <mat-card>
   <h4>{{ title }}</h4>
   <ul>
-    <li *ngFor="let joke of jokes" class="joke-item">
+    <li *ngFor="let joke of jokes.values()" class="joke-item">
       <span>{{ joke?.joke }}</span>
       <button mat-icon-button (click)="update(joke)">
         <mat-icon *ngIf="!joke.liked">star_border</mat-icon>

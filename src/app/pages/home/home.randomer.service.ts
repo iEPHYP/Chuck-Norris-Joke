@@ -8,7 +8,7 @@ import { Joke } from './components/jokes/jokes.model';
 @Injectable()
 export class RandomerService {
   private apiUrl = 'http://api.icndb.com/jokes/random/1';
-  private timerPeriod = 1000;
+  private timerPeriod = 5000;
   private getRandomJokeSubject = new Subject<Joke>();
   private timerStoppedSubject = new Subject();
 

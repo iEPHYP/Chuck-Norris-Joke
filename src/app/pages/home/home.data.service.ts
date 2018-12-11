@@ -10,6 +10,7 @@ import {
   map
 } from 'rxjs/operators';
 import { Joke } from './components/jokes/jokes.model';
+import { FastMap } from 'src/app/shared/fast-map';
 
 @Injectable()
 export class DataService {
@@ -17,7 +18,7 @@ export class DataService {
   private getDataSubject = new Subject<Joke[]>();
   private destroyed = new Subject();
   private onRefreshClickSubject = new Subject();
-  private favouriteJokes: Joke[];
+  private favouriteJokes: FastMap<Joke>;
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +31,7 @@ export class DataService {
         map(data => {
           const jokes = data && Array.isArray(data.value) ? data.value : [];
           jokes.forEach(joke => {
-            const fJoke = this.favouriteJokes.find(fj => fj.id === joke.id);
+            const fJoke = this.favouriteJokes.read(joke.id); // O(1)
             fJoke && (joke.liked = fJoke.liked);
           });
           return jokes;
@@ -54,7 +55,7 @@ export class DataService {
     return this.onRefreshClickSubject.asObservable();
   }
 
-  provideFavourites(jokes: Joke[]) {
+  provideFavourites(jokes: FastMap<Joke>) {
     this.favouriteJokes = jokes;
   }
 
